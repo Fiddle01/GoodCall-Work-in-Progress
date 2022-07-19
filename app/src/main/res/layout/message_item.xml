@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--    If someone else sent the message-->
+    <TextView
+        android:id="@+id/authorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/author_placeholder"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_toEndOf="@id/authorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/date_placeholder"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_below="@id/authorText"
+        android:id="@+id/otherTextView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_baseline_chat_bubble_salmon_24"
+        android:gravity="center_horizontal"
+        android:paddingStart="25dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="25dp"
+        android:paddingBottom="30dp"
+        android:text="@string/message_placeholder"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <!--        If the message is your own-->
+        <TextView
+            android:id="@+id/yourTextView"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/yourDateText"
+            android:background="@drawable/ic_baseline_chat_bubble_24"
+            android:gravity="center_horizontal"
+            android:layoutDirection="rtl"
+            android:paddingStart="25dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="30dp"
+            android:text="@string/message_placeholder"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:layout_alignParentEnd="true"
+            />
+        <TextView
+            android:id="@+id/yourDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentEnd="true"
+            android:text="@string/date_placeholder"
+            android:visibility="gone" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/your_random_card_view"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:cardElevation="30dp"
+            app:cardCornerRadius="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:visibility="visible">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/your_date_text_random"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/date_placeholder"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/your_random_icon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/your_date_text_random"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_baseline_heads_24"
+                    android:visibility="visible" />
+                <TextView
+                    android:id="@+id/your_random_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/coin_result_placeholder"
+                    android:layout_below="@id/your_random_icon"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="visible"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+
+</RelativeLayout>

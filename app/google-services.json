@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "415674492699",
+    "project_id": "goodcall-2a56a",
+    "storage_bucket": "goodcall-2a56a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415674492699:android:d0989c61fc9a90621fd5be",
+        "android_client_info": {
+          "package_name": "com.example.goodcall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415674492699-q7pill02lb3o401dajkkhisujlti54up.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJofvA6s3fm_Wgndfxz-weQwDybiKxGuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415674492699-q7pill02lb3o401dajkkhisujlti54up.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
