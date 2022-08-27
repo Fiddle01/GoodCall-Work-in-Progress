@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val bn: BottomNavigationView = findViewById(R.id.bottomNavView)
-        supportFragmentManager.beginTransaction().replace(R.id.main_container, AddGroupsFragment()).commit()
         auth = FirebaseAuth.getInstance()
         if(auth.currentUser == null) {
             val intent = Intent(this, Welcome::class.java)
@@ -31,12 +30,18 @@ class MainActivity : AppCompatActivity() {
                     R.id.addGroup -> AddGroupsFragment()
                     R.id.chat -> ChatFragment()
                     R.id.settings -> SettingsFragment()
-                    else -> AddGroupsFragment()
+                    else -> ChatFragment()
                 }
 
                 supportFragmentManager.beginTransaction().replace(R.id.main_container, currentFragment).commit()
                 /*return*/ true
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, ChatFragment()).commit()
+
     }
 }

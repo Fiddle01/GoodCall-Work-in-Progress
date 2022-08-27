@@ -7,7 +7,7 @@ class TextMessage(override val author: String, override val timeSent: Date, val 
         return text
     }
 
-    constructor(): this ("None", Date(), "None")
+    constructor(): this ("NONE", Date(), "None")
 
 
 }

@@ -15,6 +15,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import java.util.*
+import kotlin.random.Random.Default.nextBoolean
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var groupCode: String
@@ -30,6 +31,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var sendTextText: TextView
     private lateinit var sendRandomText: TextView
     private lateinit var messageRecyclerView: RecyclerView
+    private lateinit var randomEvents: MutableList<RandomEvent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -49,7 +52,10 @@ class ChatActivity : AppCompatActivity() {
 
         if(bundle?.get("GROUP_CODE") != null) {
             groupCode = bundle.get("GROUP_CODE") as String
+        } else {
+            groupCode = "nothing"
         }
+        Log.d(TAG, "##onCreate: $groupCode")
 
         //Get group from database
         db = Firebase.database
@@ -89,8 +95,7 @@ class ChatActivity : AppCompatActivity() {
 
         //Add functionality to the back button:
         backButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         //Add functionality to send message button:
@@ -101,12 +106,31 @@ class ChatActivity : AppCompatActivity() {
             sendMessageAlert()
         }
 
+        randomEvents = mutableListOf(
+            RandomEvent("Coin flip", R.drawable.ic_baseline_heads_24),
+            RandomEvent("Choose Random Member", R.drawable.ic_baseline_groups_2_24)
+        )
+
         //Add functionality to the send random event button:
         sendRandomText.setOnClickListener {
-            sendRandomAlert()
+            val builder = AlertDialog.Builder(this)
+            val inflater = this.layoutInflater;
+            val alertDialog = inflater.inflate(R.layout.dialog_send_random_event, null)
+            val recyclerView = alertDialog.findViewById<RecyclerView>(R.id.random_select_recycler)
+            recyclerView.adapter = RandomEventAdapter(randomEvents, groupCode)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            builder.setView(alertDialog)
+            builder.show()
         }
         sendRandomButton.setOnClickListener {
-            sendRandomAlert()
+            val builder = AlertDialog.Builder(this)
+            val inflater = this.layoutInflater;
+            val alertDialog = inflater.inflate(R.layout.dialog_send_random_event, null)
+            val recyclerView = alertDialog.findViewById<RecyclerView>(R.id.random_select_recycler)
+            recyclerView.adapter = RandomEventAdapter(randomEvents, groupCode)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            builder.setView(alertDialog)
+            builder.show()
         }
 
         //Get messages from the group and display them in the recycler view:
@@ -115,14 +139,26 @@ class ChatActivity : AppCompatActivity() {
         messageQuery.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val messages = mutableListOf<Message>()
-
                 for (message in snapshot.children) {
                     if (message?.value is HashMap<*, *>){
-                        val textMessage = message.getValue<TextMessage>()
-
-                        if (textMessage != null) {
-                            messages.add(textMessage)
-                            Log.d(TAG, "onDataChange: Test ${textMessage.contentsToString()}")
+                        val message1 = message.value as HashMap<String, Any?>
+                        //TODO UPDATE when adding new event
+                        if(message1["text"] != null) {
+                            message.getValue(TextMessage::class.java)?.let {
+                                messages.add(it)
+                            }
+                        } else if (message1["chosenMember"] != null) {
+                            message.getValue(RandomMemberMessage::class.java)?.let {
+                                messages.add(it)
+                            }
+                        } else {
+                            //CoinMessage must be the last case since I can't use the != null trick on Boolean
+                            //it seems using get value and passing in the class fixed it
+                            //but before it didn't fix it, this may be inconsistent code.
+                            message.getValue(CoinMessage::class.java)?.let {
+                                Log.d(TAG, "onDataChange: isHeads: ${it.isHeads}")
+                                messages.add(it)
+                            }
                         }
                     }
                 }
@@ -162,10 +198,52 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-    private fun sendRandomAlert() {
-        val builder = AlertDialog.Builder(this)
-        builder.apply {
+    companion object {
+        fun sendRandomEvent (randomEvent: RandomEvent, context: Context, gc: String) {
+            val db = Firebase.database
+            val auth = FirebaseAuth.getInstance()
+            val username = auth.currentUser!!.displayName!!
+            val ref = db.reference
 
+            Log.d(TAG, "##sendRandomEvent: still alive")
+
+            Log.d(TAG, "##sendRandomEvent: $gc")
+
+            val key = ref.child(gc).push().key
+            
+            val members: ArrayList<String> = arrayListOf()
+            var chosenMember: String
+            
+            ref.child(gc).child("members").get().addOnSuccessListener {
+                for (member in it.children) {
+                    members.add(member.value.toString())
+                }
+                Log.d(TAG, "Members in group: $members")
+                val i = Math.floor(members.size * Math.random())
+                chosenMember = members[i.toInt()]
+
+                var value: Message = when(randomEvent.name) {
+                    
+                    //TODO when adding more random events update this when statement
+                    "Coin flip" -> CoinMessage(username, Date(), nextBoolean())
+                    "Choose Random Member" ->  {
+                        Log.d(TAG, "sendRandomEvent: THIS HAPPENED")
+                        Log.d(TAG, "sendRandomEvent: $chosenMember")
+                        RandomMemberMessage(username, Date(), chosenMember)
+                    }
+                    else -> TextMessage(username, Date(), "")
+                }
+
+                //TODO this if chain also must be updated
+                if(value is TextMessage) {
+                    //This happens if the random event was not added to the switch statement
+                    Log.d(TAG, "sendRandomEvent: VALUE IS TEXT MESSAGE")
+                    Toast.makeText(context, "Sending random event failed", Toast.LENGTH_SHORT).show()
+                } else if (value is CoinMessage || value is RandomMemberMessage) {
+                    //TODO RandomMemberMessage is being written to Firebase incorrectly, it does not give chosen member
+                    ref.child(gc).child(key!!).setValue(value)
+                }
+            }
         }
     }
 }

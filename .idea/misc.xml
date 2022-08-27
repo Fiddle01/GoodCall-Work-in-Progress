@@ -22,6 +22,15 @@
         <entry key="..\:/Users/zacha/AndroidStudioProjects/GoodCall/app/src/main/res/layout/group_item.xml" value="0.33" />
         <entry key="..\:/Users/zacha/AndroidStudioProjects/GoodCall/app/src/main/res/layout/message_item.xml" value="0.33" />
         <entry key="..\:/Users/zacha/AndroidStudioProjects/GoodCall/app/src/main/res/menu/navigation_items.xml" value="0.22708333333333333" />
+        <entry key="app/src/main/res/drawable/ic_baseline_groups_2_24.xml" value="0.1185" />
+        <entry key="app/src/main/res/drawable/ic_baseline_message_24.xml" value="0.1625" />
+        <entry key="app/src/main/res/drawable/ic_orange_group_add_24.xml" value="0.1185" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.26979166666666665" />
+        <entry key="app/src/main/res/layout/dialog_send_random_event.xml" value="0.1953125" />
+        <entry key="app/src/main/res/layout/dialog_send_text.xml" value="0.21670379638671872" />
+        <entry key="app/src/main/res/layout/group_item.xml" value="0.19635416666666666" />
+        <entry key="app/src/main/res/layout/message_item.xml" value="0.21422101449275363" />
+        <entry key="app/src/main/res/layout/random_event_item.xml" value="0.335" />
       </map>
     </option>
   </component>
@@ -34,7 +43,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.33" />
+        <option name="scale" value="0.1953125" />
       </ProjectState>
     </option>
   </component>

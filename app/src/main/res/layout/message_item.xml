@@ -73,21 +73,21 @@
             android:layout_height="wrap_content"
             app:cardElevation="30dp"
             app:cardCornerRadius="20dp"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentEnd="false"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="25dp"
-            android:visibility="visible">
+            android:visibility="gone">
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp">
                 <TextView
-                    android:id="@+id/your_date_text_random"
+                    android:id="@+id/date_text_random_coin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
                     android:layout_marginTop="5dp"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentEnd="false"
                     android:text="@string/date_placeholder"
                     android:visibility="visible" />
 
@@ -95,18 +95,18 @@
                     android:id="@+id/your_random_icon"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_below="@id/your_date_text_random"
-                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/date_text_random_coin"
+                    android:layout_alignParentEnd="false"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/ic_baseline_heads_24"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
                 <TextView
-                    android:id="@+id/your_random_result"
+                    android:id="@+id/random_result_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/coin_result_placeholder"
                     android:layout_below="@id/your_random_icon"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentEnd="false"
                     android:textColor="@color/black"
                     android:layout_marginEnd="10dp"
                     android:visibility="visible"/>
