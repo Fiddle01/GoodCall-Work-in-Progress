@@ -1,10 +1,13 @@
 package com.example.goodcall
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +23,8 @@ class SettingsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var viewOfLayout: View
+    private lateinit var fbauth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +39,9 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        fbauth = FirebaseAuth.getInstance()
+        viewOfLayout = inflater.inflate(R.layout.fragment_settings, container, false)
+        return viewOfLayout
     }
 
     companion object {
@@ -55,5 +62,15 @@ class SettingsFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val b1: Button
+        b1 = viewOfLayout.findViewById(R.id.logout_button)
+        b1.setOnClickListener {
+            fbauth.signOut()
+            startActivity(Intent(requireContext(), Welcome::class.java))
+        }
     }
 }

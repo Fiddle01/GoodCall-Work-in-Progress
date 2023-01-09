@@ -6,9 +6,15 @@
     tools:context=".SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/slide3_desc" />
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/salmon"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        />
 
 </FrameLayout>

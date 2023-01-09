@@ -165,7 +165,6 @@ class ChatActivity : AppCompatActivity() {
                 val adapter = MessageAdapter(messages)
                 messageRecyclerView.adapter = adapter
                 messageRecyclerView.scrollToPosition(messages.size-1)
-
             }
 
             override fun onCancelled(error: DatabaseError) {

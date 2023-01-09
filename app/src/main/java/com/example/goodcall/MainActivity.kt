@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.addGroup -> AddGroupsFragment()
                     R.id.chat -> ChatFragment()
                     R.id.settings -> SettingsFragment()
-                    else -> ChatFragment()
+                    else -> AddGroupsFragment()
                 }
 
                 supportFragmentManager.beginTransaction().replace(R.id.main_container, currentFragment).commit()

@@ -37,8 +37,6 @@ class AddGroupsFragment : Fragment() {
     private lateinit var db: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

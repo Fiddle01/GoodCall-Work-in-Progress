@@ -40,4 +40,5 @@
     <string name="message_placeholder">in the air in need to polish bbq of oxygen and carbon dioxide</string>
     <string name="date_placeholder">Date Here</string>
     <string name="coin_result_placeholder">Fiddle01 flipped a coin that landed result</string>
+    <string name="logout">Logout</string>
 </resources>
