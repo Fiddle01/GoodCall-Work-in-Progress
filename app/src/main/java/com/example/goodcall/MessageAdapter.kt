@@ -35,7 +35,6 @@ class MessageAdapter (private var messages: MutableList<Message>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.setIsRecyclable(false) //TODO eventually fix, this hurts performance of recycler view.
         val username = auth.currentUser!!.displayName!!
         Log.d(TAG, "onBindViewHolder: here")
         Log.d(TAG, "is random member message: ${messages[position]} ")
